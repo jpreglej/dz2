@@ -9,7 +9,7 @@ int main()
         double mag, phs;
         double c;
         mag=5;
-        phs=M_PI/6
+        phs=M_PI/6;
 
         c=cmplx_real(mag, phs);
 

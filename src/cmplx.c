@@ -33,3 +33,38 @@ double cmplx_imag(double mag, double phs)
 {
         return mag*(sin(phs));
 }
+
+void cmplx_dft(cmplx_t *input, cmplx_t *output, int N)
+{
+	int n, k;
+	cmplx_t clan;
+	for (n=0; n<N; n++){
+		output[n][0]=0;
+		output[n][1]=0;
+		for (k=0; k<N; k++){
+			clan[0]=cos((2*M_PI*k*n/N));
+			clan[1]=-1*sin((2*M_PI*k*n/N));
+			cmplx_mul(clan, input[k], clan);
+			output[n][0]=output[n][0]+clan[0];
+			output[n][1]=output[n][1]+clan[1];
+		}
+	}
+}
+
+void cmplx_idft(cmplx_t *input, cmplx_t *output, int N)
+{
+	int n, k;
+        cmplx_t clan;
+        for (n=0; n<N; n++){
+                output[n][0]=0;
+                output[n][1]=0;
+                for (k=0; k<N; k++){
+                        clan[0]=cos((2*M_PI*k*n/N))/N;
+                        clan[1]=sin((2*M_PI*k*n/N))/N;
+			cmplx_mul(clan, input[k], clan);
+                        output[n][0]=output[n][0]+clan[0];
+                        output[n][1]=output[n][1]+clan[0];
+		}
+	}
+
+}

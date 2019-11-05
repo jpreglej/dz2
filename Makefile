@@ -1,24 +1,12 @@
-SRC=$(wildcard src/*c)
-OBJ=$(patsubst %c, %o, $(SRC))
-INC=inc/
-
-CFLAGS=-I $(INC)
-EXE=exe/app.elf
 
 
+all: exe/test08.elf
 
-
-
-
-.SECONDARY:
-
-all: $(EXE)
-
-%.elf: $(OBJ)
-	gcc $(OBJ) -o $@
+%.elf: src/test08.o src/cmplx.o
+	gcc src/test08.o src/cmplx.o -o $@ -lm
 
 %.o: %.c
 	gcc -c $< -I inc/ -o  $@ -lm
 
 clean:
-	rm -f $(OBJ) $(EXE)
+	rm -f src/*.o exe/app.elf
